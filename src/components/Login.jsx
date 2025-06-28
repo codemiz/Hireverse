@@ -3,8 +3,11 @@ import Footer from "./Footer";
 import { useForm } from "react-hook-form";
 import { signInWithPopup } from "firebase/auth";
 import { Auth , googleProvider } from "../firebase";
+import axios from "axios"
+import { useState } from "react";
 
 function Login() {
+  const [selectetedRole, setSelectetedRole] = useState("Employee")
 
   const googleLogin = async () =>{
     try {
@@ -30,6 +33,7 @@ function Login() {
 
   function onSubmit(data) {
     console.log(data);
+    axios.post("http://localhost:3000/login" , data)
   }
   return (
     <div className="w-full h-screen bg-blue-50 flex flex-col gap-2 justify-center items-center">
@@ -48,12 +52,12 @@ function Login() {
           <span className="text-blue-400">sign up</span>
         </p>
         <div className="flex w-[80%] justify-between h-12 ">
-          <div className="options border-[1px] border-blue-400 bg-blue-50 rounded-md flex w-[45%] py-1 px-2 text-lg text-gray-8900 items-center justify-center font-semibold ">
+          <button onClick={() => setSelectetedRole("Employee")} className={`options border-[1px] ${selectetedRole=="Employee" ? "border-blue-400 bg-blue-50" : "border-gray-400"} cursor-pointer rounded-md flex w-[45%] py-1 px-2 text-lg text-gray-8900 items-center justify-center font-semibold hover:border-2`}>
             Employee Login
-          </div>
-          <div className="options border-[1px] border-gray-400 rounded-md flex w-[45%] py-1 px-2 text-lg text-gray-700 items-center justify-center font-semibold ">
+          </button>
+          <button onClick={() => setSelectetedRole("Employer")} className={`options border-[1px] ${selectetedRole=="Employer" ? "border-blue-400 bg-blue-50" : "border-gray-400"} cursor-pointer rounded-md flex w-[45%] py-1 px-2 text-lg text-gray-700 items-center justify-center font-semibold hover:border-2`}>
             Employer Login
-          </div>
+          </button>
         </div>
         {/* <div className="text-md font-light">Sign in using google</div>         */}
         <hr className="text-gray-400 w-4/5 my-4" />
@@ -103,13 +107,13 @@ function Login() {
           >
             Submit
           </button>
-        </form>
         <div className="flex justify-between w-4/5">
           <div className="text-md font-light text-blue-400">Register</div>
           <div className="text-md font-light text-blue-400">
             Forgot Password?
           </div>
         </div>
+        </form>
       </div>
       <Footer />
     </div>
