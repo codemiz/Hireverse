@@ -14,6 +14,8 @@ import EmployerProfile from "./components/Employer-profile";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { getUser } from "./api";
 import { AuthProvider } from "./context/AuthContext";
+import PrivateRoute from "./components/privateRoute";
+import Verification from "./components/Verification";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -25,7 +27,16 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/onboarding" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          } />
+          <Route path="/verification" element={
+            <PrivateRoute>
+              <Verification />
+            </PrivateRoute>
+          } />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

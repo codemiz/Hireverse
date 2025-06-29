@@ -40,7 +40,7 @@ function Register() {
     console.log(data);
     const res = await signUp(data,selectetedRole)
     setUser(res.data.user)
-    nevigate("/profile")
+    nevigate("/verification")
 
   }
   return (

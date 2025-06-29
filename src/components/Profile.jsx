@@ -4,14 +4,11 @@ import Footer from './Footer'
 import { useAuth } from '../context/AuthContext'
 
 function Profile() {
-  const {user,loading} = useAuth()
+  const {user} = useAuth()
 
-  useEffect(() => {
-    
-    
-  }, [])
+
   
-  if (loading) return <div>Laoding</div>
+ 
   return (
     <div  className="w-full min-h-screen bg-blue-50 flex flex-col gap-2 items-center py-20">
      <Header />
@@ -38,7 +35,7 @@ function Profile() {
            <div className="interviews-div w-11/12 md:w-full h-40 flex justify-between flex-col items-start  bg-blue-200 shadow rounded-2xl gap-3 py-4 px-4">
               <p className='text-lg font-medium text-gray-700'>Interviews</p>
               <div className="w-full flex justify-between items-end">
-              <p className='text-4xl font-bold text-gray-700'>{user.Interviews.length}</p>
+              <p className='text-4xl font-bold text-gray-700'>{user.interviews.length}</p>
               <p className='text-md font-thin text-gray-700 mr-2'>&gt;</p>
 
               </div>
