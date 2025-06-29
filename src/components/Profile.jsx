@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from './Header'
 import Footer from './Footer'
+import { useAuth } from '../context/AuthContext'
 
 function Profile() {
+  const {user,loading} = useAuth()
+
+  useEffect(() => {
+    
+    
+  }, [])
+  
+  if (loading) return <div>Laoding</div>
   return (
     <div  className="w-full min-h-screen bg-blue-50 flex flex-col gap-2 items-center py-20">
      <Header />
@@ -14,14 +23,14 @@ function Profile() {
             <div className="w-52 h-52 lg:w-64 lg:h-64 flex justify-center items-center rounded-full">
               <img src="./profile-pic.jpg" className="rounded-full lg:w-64" alt="" />
             </div>
-          <p className='text-3xl font-bold text-gray-700'>Alex Smith</p>
+          <p className='text-3xl font-bold text-gray-700'>{user.name}</p>
            </div>
            {/* <p className='text-2xl font-medium text-gray-700 mt-2'>My Jobs</p> */}
             <div className="w-full md:w-1/2 flex flex-col items-center gap-2">
            <div className="applied-div w-11/12 md:w-full h-40 flex justify-between flex-col items-start  bg-green-200 shadow rounded-2xl gap-3 py-4 px-4">
               <p className='text-lg font-medium text-gray-700'>Applied</p>
               <div className="w-full flex justify-between items-end">
-              <p className='text-4xl font-bold text-gray-700'>12</p>
+              <p className='text-4xl font-bold text-gray-700'>{user.appliedJobs.length}</p>
               <p className='text-md font-thin text-gray-700 mr-2'>&gt;</p>
 
               </div>
@@ -29,7 +38,7 @@ function Profile() {
            <div className="interviews-div w-11/12 md:w-full h-40 flex justify-between flex-col items-start  bg-blue-200 shadow rounded-2xl gap-3 py-4 px-4">
               <p className='text-lg font-medium text-gray-700'>Interviews</p>
               <div className="w-full flex justify-between items-end">
-              <p className='text-4xl font-bold text-gray-700'>08</p>
+              <p className='text-4xl font-bold text-gray-700'>{user.Interviews.length}</p>
               <p className='text-md font-thin text-gray-700 mr-2'>&gt;</p>
 
               </div>
@@ -37,7 +46,7 @@ function Profile() {
           <div className="rejected-div w-11/12 md:w-full h-40 flex justify-between flex-col items-start  bg-red-200 shadow rounded-2xl gap-3 py-4 px-4">
               <p className='text-lg font-medium text-gray-700'>Rejected</p>
               <div className="w-full flex justify-between items-end">
-              <p className='text-4xl font-bold text-gray-700'>02</p>
+              <p className='text-4xl font-bold text-gray-700'>{user.rejectedJobs.length}</p>
               <p className='text-md font-thin text-gray-700 mr-2'> &gt;</p>
 
               </div>

@@ -3,12 +3,17 @@ import Footer from "./Footer";
 import { useForm } from "react-hook-form";
 import { signInWithPopup } from "firebase/auth";
 import { Auth , googleProvider } from "../firebase";
-import axios from "axios"
+import { signUp } from "../api";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useAuth } from "../context/AuthContext";
+
 
 function Register() {
   const [selectetedRole, setSelectetedRole] = useState("Employee")
-
+  const {setUser} = useAuth()
+  const nevigate = useNavigate()
   const googleLogin = async () =>{
     try {
       const result  = await signInWithPopup(Auth,googleProvider);
@@ -31,9 +36,12 @@ function Register() {
     formState: { errors, isSubmitting, isSubmitted },
   } = useForm();
 
-  function onSubmit(data) {
+  async function onSubmit(data) {
     console.log(data);
-    axios.post(`http://localhost:3000/register/${selectetedRole}` , data)
+    const res = await signUp(data,selectetedRole)
+    setUser(res.data.user)
+    nevigate("/profile")
+
   }
   return (
     <div className="w-full h-screen bg-blue-50 flex flex-col gap-2 justify-center items-center">

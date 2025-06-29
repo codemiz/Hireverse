@@ -5,6 +5,7 @@ import { signInWithPopup } from "firebase/auth";
 import { Auth , googleProvider } from "../firebase";
 import axios from "axios"
 import { useState } from "react";
+import { login } from "../api";
 
 function Login() {
   const [selectetedRole, setSelectetedRole] = useState("Employee")
@@ -33,7 +34,7 @@ function Login() {
 
   function onSubmit(data) {
     console.log(data);
-    axios.post("http://localhost:3000/login" , data)
+   login(data)
   }
   return (
     <div className="w-full h-screen bg-blue-50 flex flex-col gap-2 justify-center items-center">
