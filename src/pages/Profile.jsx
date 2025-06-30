@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import Header from './Header'
-import Footer from './Footer'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
 import { useAuth } from '../context/AuthContext'
 
 function Profile() {
@@ -17,8 +17,8 @@ function Profile() {
         
     
             <div className="image-div w-11/12 md:w-1/2 md:h-[500px] flex justify-center flex-col items-center bg-white shadow rounded-2xl gap-3 md:gap-4 py-3">
-            <div className="w-52 h-52 lg:w-64 lg:h-64 flex justify-center items-center rounded-full">
-              <img src="./profile-pic.jpg" className="rounded-full lg:w-64" alt="" />
+            <div className="w-52 h-52 lg:w-64 lg:h-64 flex justify-center items-center rounded-full border border-gray-500">
+              <img src={`${user.avatar}`} className="rounded-full lg:w-64" alt="" />
             </div>
           <p className='text-3xl font-bold text-gray-700'>{user.name}</p>
            </div>

@@ -1,11 +1,13 @@
 import React from "react";
-import Footer from "./Footer";
+import Footer from "../components/Footer";
 import { useForm } from "react-hook-form";
 import { signInWithPopup } from "firebase/auth";
 import { Auth , googleProvider } from "../firebase";
 import axios from "axios"
 import { useState } from "react";
 import { login } from "../api";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
   const [selectetedRole, setSelectetedRole] = useState("Employee")
