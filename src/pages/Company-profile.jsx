@@ -19,7 +19,7 @@ function CompanyProfile() {
       </div>
       </div>
 
-      <div className="flex w-11/12 flex-col gap-4 justify-center items-center">
+      <form className="flex w-11/12 flex-col gap-4 justify-center items-center">
       <div className="name w-full flex flex-col">
           <label htmlFor="name" className="text-lg font-medium text-gray-700">
             Company Name:
@@ -47,9 +47,7 @@ function CompanyProfile() {
             placeholder="Describe your company"
           ></textarea>
         </div>
-       
-
-       
+    
         <div className="contact-div flex w-full gap-2">
           <div className="w-2/4">
             <label
@@ -84,7 +82,6 @@ function CompanyProfile() {
           </div>
         </div>
         
-       
         <div className="location w-full flex flex-col">
           <label htmlFor="name" className="text-lg font-medium text-gray-700">
             Location:
@@ -99,8 +96,7 @@ function CompanyProfile() {
             placeholder="The city in which your company is based in"
           ></textarea>
         </div>
-        
-      </div>
+      </form>
     </div>
     <div className="buttons w-[90%] lg:w-3/4 xl:w-3/5 2xl:w-2/5 flex gap-2 justify-center mt-2">
         <button className="bg-blue-400 px-4 py-1 text-white font-medium w-1/2  h-10 text-lg rounded-md">Go Back</button>
