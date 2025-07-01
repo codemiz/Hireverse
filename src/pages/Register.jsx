@@ -14,7 +14,7 @@ import GoogleLoginButton from "../components/GoogleLoginButton";
 function Register() {
   const [selectetedRole, setSelectetedRole] = useState("Employee")
   const {setUser} = useAuth()
-  const nevigate = useNavigate()
+  const navigate = useNavigate()
  
   const {
     register,
@@ -24,11 +24,27 @@ function Register() {
   } = useForm();
 
   async function onSubmit(data) {
-    console.log(data);
-    const res = await signUp(data,selectetedRole)
-    setUser(res.data.user)
-    nevigate("/verification")
-
+    try {
+          const res = await signUp(data,selectetedRole)
+          setUser(res.data.user)
+          setTimeout(() => {
+                navigate("/verification")
+              }, 200);
+       } catch (error) {
+        if(error.response && error.response.status === 400){
+          setError("password" ,{
+            type: "manual" ,
+            message: "email already exists. try signing in."
+          })
+        }
+        else if(error.response && error.response.status === 500){
+          setError("password" ,{
+            type: "manual" ,
+            message: "server error. please try again."
+          })
+          
+        }
+       }
   }
   return (
     <div className="w-full h-screen bg-blue-50 flex flex-col gap-2 justify-center items-center">
@@ -39,9 +55,9 @@ function Register() {
         alt=""
       />
 
-      {!isSubmitted ?
-      <div className=" w-11/12 sm:w-9/12 md:w-8/12 lg:w-5/12 xl:w-4/12 2xl:w-[28%] min-h-4/6 bg-white shadow flex flex-col items-center pt-8 pb-5 rounded-2xl gap-4">
-        <div className="text-3xl text-gray-500 font-bold mb-6">
+     
+      <div className=" w-11/12 sm:w-9/12 md:w-8/12 lg:w-5/12 xl:w-4/12 2xl:w-[28%] min-h-4/6 bg-white shadow flex flex-col items-center pt-8 pb-5 rounded-2xl gap-3">
+        <div className="text-3xl text-gray-500 font-bold mb-4">
           Welcome to jobnest.
         </div>
         <p className="font-light text-md">
@@ -57,7 +73,7 @@ function Register() {
           </button>
         </div>
         {/* <div className="text-md font-light">Sign in using google</div>         */}
-        <hr className="text-gray-400 w-4/5 my-4" />
+        <hr className="text-gray-400 w-4/5 my-3" />
         <GoogleLoginButton role={selectetedRole} />
         <div className="text-md font-light">or</div>
         <form
@@ -106,7 +122,7 @@ function Register() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="google w-4/5 border-[1px] border-gray-400 h-12 bg-blue-400 text-white font-semibold flex justify-center items-center text-lg rounded-md"
+            className="google w-4/5 border-[1px] border-gray-400 h-12 bg-blue-400 text-white font-semibold flex justify-center items-center text-lg rounded-md mt-1"
           >
             Submit
           </button>
@@ -118,25 +134,7 @@ function Register() {
         </div>
         </form>
       </div>
-      :
-      <div className="w-11/12 sm:w-9/12 md:w-8/12 lg:w-5/12 xl:w-4/12 2xl:w-[25%] h-2/6 bg-white shadow flex flex-col items-center pt-8 rounded-2xl gap-4">
-    <div className='text-2xl text-gray-500 font-semibold mb-6'>Reset your password</div>
-    {/* <p className='font-light text-md'>We'll send a code to your email</p> */}
-    {/* <p className='font-light text-md'>Enter the code your recieved om your email.</p> */}
-    <p className='font-light text-md'>Choose the new password.</p>
-    
-    {/* <input type="email" className='w-4/5 border h-12 px-3 border-gray-400 rounded-md' placeholder='Enter your email' />         */}
-    {/* <input type="text" maxLength={6} className='w-4/5 border h-12 px-3 border-gray-400 rounded-md' />         */}
-    <input type="password" className='w-4/5 border h-12 px-3 border-gray-400 rounded-md' placeholder='Password' />        
-    <button className="google w-4/5 border-[1px] border-gray-400 h-12 bg-blue-400 text-white font-semibold flex justify-center items-center text-lg rounded-md">Submit</button>
-
-     <div className='flex gap-1 mt-5 items-center'>
-    <div className="circle w-[10px] h-[10px]  border-[1px] border-gray-500 rounded-full"></div>    
-    <div className="circle w-[12px] h-[12px] bg-blue-400 border-[1px] border-blue-400 rounded-full"></div>    
-    <div className="circle w-[10px] h-[10px]  border-[1px] border-gray-500 rounded-full"></div>    
-    </div>    
-   </div>
-   }
+     
       <Footer />
     </div>
   );

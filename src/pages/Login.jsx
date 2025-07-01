@@ -1,32 +1,19 @@
 import React from "react";
 import Footer from "../components/Footer";
 import { useForm } from "react-hook-form";
-import { signInWithPopup } from "firebase/auth";
-import { Auth , googleProvider } from "../firebase";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+
 import axios from "axios"
 import { useState } from "react";
 import { login } from "../api";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import GoogleLoginButton from "../components/GoogleLoginButton";
 
 function Login() {
   const [selectetedRole, setSelectetedRole] = useState("Employee")
-
-  const googleLogin = async () =>{
-    try {
-      const result  = await signInWithPopup(Auth,googleProvider);
-      const user = result.user
-      const token = await user.getIdToken()
-
-      console.log("User" , user);
-      console.log("token" , token);
-      
-      
-    } catch (error) {
-      console.log(error.message);
-      
-    }
-  }
+  const {setUser} = useAuth()
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -34,9 +21,29 @@ function Login() {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  function onSubmit(data) {
-    console.log(data);
-   login(data)
+  async function onSubmit(data) {
+   try {
+      const res = await login(data)
+      setUser(res.data.user)
+      setTimeout(() => {
+            navigate("/profile")
+            
+          }, 200);
+   } catch (error) {
+    if(error.response && error.response.status === 401){
+      setError("password" ,{
+        type: "manual" ,
+        message: "incorrect password. please try again."
+      })
+    }
+    else if(error.response && error.response.status === 404){
+      setError("email" ,{
+        type: "manual" ,
+        message: "email is not registered. try signing up."
+      })
+      
+    }
+   }
   }
   return (
     <div className="w-full h-screen bg-blue-50 flex flex-col gap-2 justify-center items-center">
@@ -46,36 +53,21 @@ function Login() {
         className="absolute left-2 top-2"
         alt=""
       />
-      <div className="w-11/12 sm:w-9/12 md:w-8/12 lg:w-5/12 xl:w-4/12 2xl:w-[28%] h-4/6 bg-white shadow flex flex-col items-center pt-8 rounded-2xl gap-4">
-        <div className="text-3xl text-gray-500 font-bold mb-6">
+      <div className="w-11/12 sm:w-9/12 md:w-8/12 lg:w-5/12 xl:w-4/12 2xl:w-[28%] h-[55%] bg-white shadow flex flex-col items-center pt-8 rounded-2xl gap-4">
+        <div className="text-3xl text-gray-500 font-bold mb-2">
           Welcome to jobnest.
         </div>
         <p className="font-light text-md">
           Login to your account or{" "}
           <span className="text-blue-400">sign up</span>
         </p>
-        <div className="flex w-[80%] justify-between h-12 ">
-          <button onClick={() => setSelectetedRole("Employee")} className={`options border-[1px] ${selectetedRole=="Employee" ? "border-blue-400 bg-blue-50" : "border-gray-400"} cursor-pointer rounded-md flex w-[45%] py-1 px-2 text-lg text-gray-8900 items-center justify-center font-semibold hover:border-2`}>
-            Employee Login
-          </button>
-          <button onClick={() => setSelectetedRole("Employer")} className={`options border-[1px] ${selectetedRole=="Employer" ? "border-blue-400 bg-blue-50" : "border-gray-400"} cursor-pointer rounded-md flex w-[45%] py-1 px-2 text-lg text-gray-700 items-center justify-center font-semibold hover:border-2`}>
-            Employer Login
-          </button>
-        </div>
+        
         {/* <div className="text-md font-light">Sign in using google</div>         */}
-        <hr className="text-gray-400 w-4/5 my-4" />
-        <div onClick={googleLogin} className="google w-4/5 border-[1px] border-gray-400 h-12 flex gap-1.5 justify-center items-center text-lg font-normal font- rounded-md">
-          <img
-            className="w-5 h-5"
-            src="https://www.svgrepo.com/show/475656/google-color.svg"
-            loading="lazy"
-            alt="google logo"
-          />
-          <span>Login with Google</span>
-        </div>
+        <hr className="text-gray-400 w-4/5 my-3" />
+        <GoogleLoginButton role="any" />
         <div className="text-md font-light">or</div>
         <form
-          className="w-full flex flex-col items-center  gap-2"
+          className="w-full flex flex-col items-center gap-4"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="w-4/5 flex flex-col items-start">

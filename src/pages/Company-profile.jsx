@@ -12,9 +12,9 @@ function CompanyProfile() {
       <div className="image-div w-11/12 flex justify-center md:justify-start ">
       <div className="w-52 h-52 rounded-full mb-12">
           
-        <img src="./profile-pic.jpg" className="rounded-full" alt="" />
+        <img src="/profile-pic.jpg" className="rounded-full" alt="" />
         <div className="circle w-12 h-12 border-2 border-gray-400 flex justify-center items-center bg-gray-200 rounded-full relative left-40 top-[-70px]">
-          <img src="./camera-icon.png" width={30} alt="" />
+          <img src="/camera-icon.png" width={30} alt="" />
         </div>
       </div>
       </div>

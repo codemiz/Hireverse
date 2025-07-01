@@ -21,7 +21,7 @@ function Verification() {
       }
         const res = await verifyCode(data)
         setUser(res.data.user)
-        navigate("/profile")
+        navigate("/")
         setCode("")
     }
   return (
