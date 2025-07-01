@@ -2,8 +2,8 @@ import React from 'react'
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useAuth } from "../context/AuthContext";
-import { useForm } from 'react-hook-form';
 import { editResume } from '../api';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
 function CvEditor() {
   const {setUser , user} = useAuth()
