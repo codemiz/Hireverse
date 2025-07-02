@@ -12,4 +12,13 @@ export const sendCode = (data) => api.post("/send-code" , {email:data})
 export const verifyCode = (data) => api.post("/verify/email" , data)
 export const googleLogin = (token , role) => api.post(`/api/auth/google-login/${role}` , {token})
 export const editResume = (data) => api.post("/api/resume/edit" , data)
-export const editCompany = (data) => api.post("/api/company/edit" , data)
+export const editCompany = (data) => api.post("/api/company/edit" , data , {
+    headers: {
+        "Content-Type" : "multipart/form-data"
+    }
+})
+export const uploadAvatar = (data) => api.post("/api/employer/profile/avatar" , data , {
+    headers: {
+        "Content-Type" : "multipart/form-data"
+    }
+})

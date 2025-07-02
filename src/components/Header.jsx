@@ -45,7 +45,7 @@ function Header() {
           <NavLink to={"/employer/company"}>Company</NavLink>
           
          <NavLink to={"/employer/profile"}>
-         <img src="/profile-pic.jpg" width={25} alt="" />
+         <img src={user.company.logoURL} width={25} alt="" />
          </NavLink>
           </>
           }

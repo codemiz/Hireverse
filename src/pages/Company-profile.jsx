@@ -12,27 +12,25 @@ function CompanyProfile() {
     <Header />
     {user.company ? 
     <>
-    <p className="text-3xl font-semibold">Add you company details</p>
+    <p className="text-3xl font-semibold">My company</p>
     <hr className="text-gray-400 w-[90%] my-4" />
-    <div className="cv w-[90%] lg:w-3/4 xl:w-3/5 2xl:w-1/2 bg-white shadow py-14 px-2 md:px-6 flex flex-col items-center">
+    <div className="company w-[90%] lg:w-3/4 xl:w-3/5 2xl:w-1/2 bg-white shadow py-14 px-2 md:px-6 flex flex-col items-center">
       <div className="image-div w-11/12 flex justify-center md:justify-start ">
       <div className="w-52 h-52 rounded-full mb-12">
           
-        <img src="/profile-pic.jpg" className="rounded-full" alt="" />
-        <div className="circle w-12 h-12 border-2 border-gray-400 flex justify-center items-center bg-gray-200 rounded-full relative left-40 top-[-70px]">
-          <img src="/camera-icon.png" width={30} alt="" />
-        </div>
+        <img src={user.company.logoURL} className="rounded-full" alt="" />
       </div>
       </div>
 
-      <form className="flex w-11/12 flex-col gap-4 justify-center items-center">
+      <form className="flex w-11/12 text-gray-600 flex-col gap-4 justify-center items-center">
       <div className="name w-full flex flex-col">
           <label htmlFor="name" className="text-lg font-medium text-gray-700">
             Company Name:
           </label>
           <textarea
             name="about"
-            id=""
+            value={user.company.name}
+            disabled
             rows={1}
             cols={100}
             className="border w-full px-2 py-1 rounded-md border-gray-400"
@@ -46,7 +44,8 @@ function CompanyProfile() {
           </label>
           <textarea
             name="about"
-            id=""
+            value={user.company.about}
+            disabled
             rows={5}
             cols={100}
             className="border w-full px-2 py-1 rounded-md border-gray-400"
@@ -64,6 +63,8 @@ function CompanyProfile() {
             </label>
             <input
               type="text"
+              value={user.company.number}
+              disabled
               maxLength={11}
               className="w-full md:w-4/5 border border-gray-400  rounded-md h-10 px-2"
             />
@@ -81,7 +82,7 @@ function CompanyProfile() {
               <input
                 type="text"
                 disabled
-                value={"email223@gmail.com"}
+                value={user.company.email}
                 className="w-full border border-gray-400 rounded-md h-10 px-2 text-gray-600"
               />
             </div>
@@ -94,9 +95,10 @@ function CompanyProfile() {
           </label>
           <textarea
             name="about"
-            id=""
             rows={1}
             cols={100}
+            value={user.company.location}
+            disabled
             className="border w-full px-2 py-1 rounded-md border-gray-400"
             maxLength={25}
             placeholder="The city in which your company is based in"
@@ -105,7 +107,7 @@ function CompanyProfile() {
       </form>
     </div>
     <div className="buttons w-[90%] lg:w-3/4 xl:w-3/5 2xl:w-2/5 flex gap-2 justify-center mt-2">
-        <NavLink to={"/employer/company/edit"} className="bg-blue-400 px-4 py-1 text-white font-medium px-20 h-10 text-lg rounded-md">Update Details</NavLink>
+        <NavLink to={"/employer/company/edit"} className="bg-blue-400 py-1 text-white font-medium px-20 h-10 text-lg rounded-md">Update Details</NavLink>
         {/* <button className="bg-blue-400 px-4 py-1 text-white font-medium w-1/2  h-10 text-lg rounded-md">Save</button> */}
     </div>
     </>

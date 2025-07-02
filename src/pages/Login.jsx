@@ -12,7 +12,7 @@ import GoogleLoginButton from "../components/GoogleLoginButton";
 
 function Login() {
   const [selectetedRole, setSelectetedRole] = useState("Employee")
-  const {setUser} = useAuth()
+  const {setUser ,user} = useAuth()
   const navigate = useNavigate()
   const {
     register,
@@ -25,6 +25,8 @@ function Login() {
    try {
       const res = await login(data)
       setUser(res.data.user)
+      console.log("user data is" , user);
+      
       setTimeout(() => {
             navigate("/profile")
             
