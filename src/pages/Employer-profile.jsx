@@ -14,8 +14,17 @@ function EmployerProfile() {
   function handlePictureChange(e) {
     const file = e.target.files[0];
     if (file) {
+      setSelectedFile(file);
       const previewURL = URL.createObjectURL(file);
       setPreview(previewURL);
+      const formData = new FormData();
+
+      formData.append("avatar", selectedFile);
+    
+      setTimeout(() => {
+        
+        uploadAvatar(formData)
+      }, 1000);
       console.log(previewURL);
     }
   }
@@ -31,11 +40,7 @@ function EmployerProfile() {
 
   function changeProfilePicture(){
     fileInputRef.current.click()
-         const formData = new FormData();
-
-    formData.append("avatar", selectedFile);
     
-    uploadAvatar(formData)
   }
   return (
     <div className="w-full min-h-screen bg-blue-50 flex flex-col gap-2 items-center py-20">
@@ -54,7 +59,7 @@ function EmployerProfile() {
               name="avatar"
               onChange={(e) => {
                 handlePictureChange(e);
-                setSelectedFile(e.target.files[0]);
+                
               }}
               ref={fileInputRef}
               className="hidden"
