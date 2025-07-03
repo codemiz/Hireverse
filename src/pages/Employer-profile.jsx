@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { useAuth } from "../context/AuthContext";
-import Jobs from "./Jobs";
+import Job from "./Job";
 import { uploadAvatar } from "../api";
 
 function EmployerProfile() {
   const { user } = useAuth();
-  const [preview, setPreview] = useState(user.company.logoURL);
+  const [preview, setPreview] = useState(user.avatar || "/profile-pic.jpg");
   const [selectedFile, setSelectedFile] = useState(null);
   const fileInputRef = useRef(null);
 
@@ -19,12 +19,9 @@ function EmployerProfile() {
       setPreview(previewURL);
       const formData = new FormData();
 
-      formData.append("avatar", selectedFile);
+      formData.append("avatar", file);
     
-      setTimeout(() => {
-        
-        uploadAvatar(formData)
-      }, 1000);
+       uploadAvatar(formData)
       console.log(previewURL);
     }
   }
@@ -88,13 +85,13 @@ function EmployerProfile() {
         My Jobs ({user.postedJobs.length})
       </p>
 
-      {user.postedJobs.length > 0 ? (
-        <Jobs />
+      {/* {user.postedJobs.length > 0 ? (
+        <Job />
       ) : (
         <p className="font-light text-md mt-3">
           You have not posted any jobs yet.
         </p>
-      )}
+      )} */}
 
       <Footer />
     </div>

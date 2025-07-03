@@ -8,10 +8,12 @@ const api = axios.create({
 export const signUp = (data,role) => api.post(`/api/register/${role}` , data)
 export const login = (data) => api.post(`/api/login` , data)
 export const getUser = () => api.get("/api/user")
+export const getLatestJobs = () => api.get("/api/jobs/all")
 export const sendCode = (data) => api.post("/send-code" , {email:data})
 export const verifyCode = (data) => api.post("/verify/email" , data)
 export const googleLogin = (token , role) => api.post(`/api/auth/google-login/${role}` , {token})
 export const editResume = (data) => api.post("/api/resume/edit" , data)
+export const postJob = (data) => api.post("/api/job/post" , data)
 export const editCompany = (data) => api.post("/api/company/edit" , data , {
     headers: {
         "Content-Type" : "multipart/form-data"

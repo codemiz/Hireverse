@@ -1,8 +1,15 @@
 import React from 'react'
-import Jobs from '../pages/Jobs'
+import Job from './Job'
 import Header from '../components/Header'
+import { getLatestJobs } from '../api'
+import { useEffect } from 'react'
+import { useAuth } from '../context/AuthContext'
 
 function Home() {
+const {jobs,jobsLoading} = useAuth()
+  
+  
+  if( jobsLoading) return <p>loading jobs</p>
   return (
     <div className='w-full min-h-screen bg-blue-50 flex flex-col gap-2 items-center py-20'>
      
@@ -22,7 +29,11 @@ function Home() {
         </div>
       </div>
       {/* <img src="./hero-img.jpg" width={800} alt="" /> */}
-      <Jobs />
+
+      {jobs.map((job,index)=>(
+        <Job title={job.title} description={job.description} company={job.company} education={job.education} age={job.age} salary={job.salary} experience={job.experience} location={job.location}  isVerified={job.verifiedCompany}/>
+      ))}
+     
     </div>
   )
 }

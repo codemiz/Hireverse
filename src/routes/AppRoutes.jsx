@@ -11,7 +11,7 @@ import PublicRoute from '../components/PublicRoute';
 import EmployerOnly from '../components/EmployerOnly';
 import EmployerProfile from "../pages/Employer-profile"
 import CompanyProfile from "../pages/Company-profile"
-import Jobs from '../pages/Jobs';
+import Job from '../pages/Job';
 import PostJob  from "../pages/Post-job"
 import Resume from "../pages/Resume"
 import JobPreview from "../pages/Job-preview"

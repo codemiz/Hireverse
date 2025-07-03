@@ -22,13 +22,13 @@ function Header() {
         <nav className='flex gap-6 font-light'>
 
           <NavLink to={"/"}>Browse Jobs</NavLink>
-          {!user && 
+          {!user  && 
           <>
          <NavLink to={"/employer/post-job"}>Post a job</NavLink>
          <NavLink to={"/login"}>Login</NavLink>
           </>
           }
-          {user.role=="Employee" && 
+          {(user && user.role=="Employee") && 
           <>
           <NavLink to={"/resume"}>My Jobs</NavLink>
           <NavLink to={"/resume"}>Resume</NavLink>
@@ -39,13 +39,13 @@ function Header() {
           
           </>
           }
-          {user.role == "Employer" &&
+          {(user && user.role == "Employer" )&&
           <>
           <NavLink to={"/employer/post-job"}>Post a job</NavLink>
           <NavLink to={"/employer/company"}>Company</NavLink>
           
          <NavLink to={"/employer/profile"}>
-         <img src={user.company.logoURL} width={25} alt="" />
+         <img src={user.avatar} className='rounded-full border border-gray-400 w-6 h-6' alt="" />
          </NavLink>
           </>
           }

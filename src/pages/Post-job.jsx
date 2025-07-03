@@ -1,13 +1,33 @@
 import React from 'react'
 import Header from '../components/Header'
+import { useForm } from 'react-hook-form';
+import { useNavigate } from "react-router-dom";
+import { postJob } from '../api';
 
 function PostJob() {
+  const navigate = useNavigate()
+   
+  const {register  , setError , handleSubmit , formState : {errors , isSubmitting}} = useForm()
+  
+  async function formSubmit (data) {
+      console.log(data);
+      
+      try {
+        const res = await postJob(data)
+        // setUser(res.data.user)
+        setTimeout(() => {
+          navigate("/")
+        }, 400);
+      } catch (error) {
+        
+      }
+    }
   return (
     <div  className="w-full min-h-screen bg-blue-50 flex flex-col gap-2 items-center py-20">
       <Header />
       <p className="text-3xl font-semibold text-gray-700">Post a job</p>
       <hr className="text-gray-400 w-[90%]  lg:w-3/4 xl:w-3/5 2xl:w-2/5 my-3" />
-      <div className="job-post w-[90%] lg:w-3/4 xl:w-3/5 2xl:w-2/5 bg-white shadow py-14 px-2 md:px-6 flex flex-col items-center">
+      <form className="job-post w-[90%] lg:w-3/4 xl:w-3/5 2xl:w-2/5 bg-white shadow py-14 px-2 md:px-6 flex flex-col items-center">
         
 
         <div className="flex w-11/12 flex-col gap-4 justify-center items-center">
@@ -16,8 +36,8 @@ function PostJob() {
              Job title:
             </label>
             <textarea
-              name="about"
-              id=""
+              name="title"
+              {...register("title")}
               rows={1}
               cols={100}
               className="border w-full px-2 py-1 rounded-md border-gray-400"
@@ -35,7 +55,7 @@ function PostJob() {
               </label>
               <input
                 type="text"
-                maxLength={11}
+                {...register("company")}
                 className="w-full border border-gray-400  rounded-md h-10 px-2"
               />
             </div>
@@ -47,8 +67,8 @@ function PostJob() {
               Job Desciption:
             </label>
             <textarea
-              name="about"
-              id=""
+              name="description"
+              {...register("description")}
               rows={15}
               cols={100}
               className="border w-full px-2 py-1 rounded-md border-gray-400"
@@ -67,6 +87,7 @@ function PostJob() {
               </label>
               <input
                 type="text"
+                 {...register("education")}
                 placeholder="Education"
                 className="w-full border border-gray-400  rounded-md h-10 px-2"
               />
@@ -75,6 +96,7 @@ function PostJob() {
             <div className="w-full md:w-3/6 flex flex-col items-end justify-end">
                 <input
                   type="text"
+                   {...register("experience")}
                   placeholder="Experience"
                   className="w-full border border-gray-400  rounded-md h-10 px-2"
                 />
@@ -82,6 +104,7 @@ function PostJob() {
             <div className="w-full md:w-1/6 flex flex-col items-end justify-end">
                 <input
                   type="text"
+                   {...register("age")}
                   placeholder="Age"
                   className="w-full border border-gray-400  rounded-md h-10 px-2"
                 />
@@ -98,7 +121,8 @@ function PostJob() {
               </label>
               <input
                 type="text"
-                placeholder="Salery"
+                 {...register("salary")}
+                placeholder="Salary"
                 className="w-full border border-gray-400  rounded-md h-10 px-2"
               />
             </div>
@@ -106,6 +130,7 @@ function PostJob() {
             <div className="w-full md:w-2/6 flex flex-col items-end justify-end">
                 <input
                   type="text"
+                  {...register("incentiveOne")}
                   placeholder="Other Incentives ( if any )"
                   className="w-full border border-gray-400  rounded-md h-10 px-2"
                 />
@@ -113,6 +138,7 @@ function PostJob() {
             <div className="w-full md:w-2/6 flex flex-col items-end justify-end">
                 <input
                   type="text"
+                  {...register("incentiveTwo")}
                   placeholder="Other Incentives ( if any )"
                   className="w-full border border-gray-400  rounded-md h-10 px-2"
                 />
@@ -124,8 +150,8 @@ function PostJob() {
               Job Location:
             </label>
             <textarea
-              name="about"
-              id=""
+              name="location"
+              {...register("location")}
               rows={1}
               cols={100}
               className="border w-full px-2 py-1 rounded-md border-gray-400"
@@ -135,10 +161,10 @@ function PostJob() {
           </div>
           
         </div>
-      </div>
+      </form>
       <div className="buttons w-[90%] lg:w-3/4 xl:w-3/5 2xl:w-2/5 flex gap-2 justify-center mt-2">
         <button className="bg-blue-400 px-4 py-1 text-white font-medium w-1/2  h-10 text-lg rounded-md">Go Back</button>
-        <button className="bg-blue-400 px-4 py-1 text-white font-medium w-1/2  h-10 text-lg rounded-md">Post Job</button>
+        <button onClick={handleSubmit(formSubmit)} className="bg-blue-400 px-4 py-1 text-white font-medium w-1/2  h-10 text-lg rounded-md">Post Job</button>
       </div>
     </div>
   )

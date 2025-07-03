@@ -92,7 +92,7 @@ function Login() {
                 required: { value: true, message: "password is required" },
               })}
               className="w-full border h-12 px-3 border-gray-400 rounded-md"
-              placeholder="Enter your email"
+              placeholder="Enter your password"
             />
             {errors.password && (
               <p className="text-sm text-red-500">{errors.password.message}</p>
