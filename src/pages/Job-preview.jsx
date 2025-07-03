@@ -1,7 +1,10 @@
 import React from 'react'
 import Header from '../components/Header'
+import { useParams } from 'react-router-dom'
+import { previewJob } from '../api'
 
 function JobPreview() {
+  const {jobId} = useParams()
   return (
     <div className="w-full min-h-screen bg-blue-50 flex flex-col gap-2 items-center py-20">
       <Header />
@@ -9,8 +12,8 @@ function JobPreview() {
           <h1 className='text-xl font-semibold text-gray-800'>Video Editor required for longterm contract (1-2 years)</h1>
           {/* <button className="bg-blue-400 px-6 py-1.5 text-white font-medium text-md rounded-full mt-2">Apply</button> */}
           <hr className='text-gray-400 w-[90%] mt-4 mb-2' />
-          <p className='text-xl font-medium flex items-center gap-1'>HC Global <img src="./check.png" width={14} alt="check=mark" /></p>
-          <p className='text-sm font-light'>Islamabad</p>
+          <p className='text-xl font-medium flex items-center gap-1'>HC Global <img src="/check.png" width={14} alt="check=mark" /></p>
+          <p className='text-sm font-light'>city</p>
           <p className='text-xl font-medium mt-8'>Job Description</p>
           <hr className='text-gray-400 w-[90%] my-2' />
           <p className='text-md font-light'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor voluptas eveniet debitis blanditiis minus temporibus totam ut provident eius placeat odit quam, enim repellendus ab nesciunt quis iure esse voluptatum!
