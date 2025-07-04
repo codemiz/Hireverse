@@ -31,7 +31,7 @@ const {jobs,jobsLoading} = useAuth()
       {/* <img src="./hero-img.jpg" width={800} alt="" /> */}
 
       {jobs.map((job,index)=>(
-        <Job title={job.title} description={job.description} company={job.company} education={job.education} age={job.age} salary={job.salary} experience={job.experience} location={job.location}  isVerified={job.verifiedCompany}/>
+        <Job key={job._id} title={job.title} description={job.description} company={job.company} education={job.education} age={job.age} salary={job.salary} experience={job.experience} location={job.location}  isVerified={job.verifiedCompany} jobID={job._id}/>
       ))}
      
     </div>

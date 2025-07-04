@@ -31,7 +31,7 @@ function AppRoutes() {
    <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/preview/:jobId" element={<JobPreview />} />
+          <Route path="/job/preview/:jobId" element={<JobPreview />} />
           <Route path="/cv/edit" element={
             <PrivateRoute>
             <CvEditor />
