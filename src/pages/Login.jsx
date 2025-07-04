@@ -55,7 +55,7 @@ function Login() {
         className="absolute left-2 top-2"
         alt=""
       />
-      <div className="w-11/12 sm:w-9/12 md:w-8/12 lg:w-5/12 xl:w-4/12 2xl:w-[28%] h-[55%] bg-white shadow flex flex-col items-center pt-8 rounded-2xl gap-4">
+      <div className="w-11/12 sm:w-9/12 md:w-8/12 lg:w-5/12 xl:w-4/12 2xl:w-[28%] min-[]:h-[55%] bg-white shadow flex flex-col items-center pt-8 pb-2 rounded-2xl gap-4">
         <div className="text-3xl text-gray-500 font-bold mb-2">
           Welcome to jobnest.
         </div>

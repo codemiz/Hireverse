@@ -85,13 +85,16 @@ function EmployerProfile() {
         My Jobs ({user.postedJobs.length})
       </p>
 
-      {/* {user.postedJobs.length > 0 ? (
-        <Job />
+      {user.postedJobs.length > 0 ? (
+        user.postedJobs.map((job,index)=>(
+
+           <Job key={job._id} title={job.title} description={job.description} company={job.company} education={job.education} age={job.age} salary={job.salary} experience={job.experience} location={job.location}  isVerified={job.verifiedCompany} jobID={job._id}/>
+        ))
       ) : (
         <p className="font-light text-md mt-3">
           You have not posted any jobs yet.
         </p>
-      )} */}
+      )}
 
       <Footer />
     </div>
