@@ -18,6 +18,7 @@ import JobPreview from "../pages/Job-preview"
 import CvEditor from '../pages/Cv-editor';
 import Admin from '../pages/Admin';
 import CompanyProfileUpdate from '../pages/Company-profile-update';
+import ResumePreview from '../pages/Resume-preview';
 function AppRoutes() {
 
      const {user} = useAuth()
@@ -75,6 +76,11 @@ function AppRoutes() {
           <Route path="/employer/company/edit" element={
             <EmployerOnly>
               <CompanyProfileUpdate />
+            </EmployerOnly>
+          } />
+          <Route path="/applicant/resume/preview/:resumeId" element={
+            <EmployerOnly>
+              <ResumePreview />
             </EmployerOnly>
           } />
           <Route path="/verification" element={

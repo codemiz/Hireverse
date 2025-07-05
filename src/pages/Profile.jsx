@@ -1,13 +1,32 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { useAuth } from '../context/AuthContext'
 import Job from './Job'
+import { uploadAvatar } from "../api";
+
 
 function Profile() {
   const {user} = useAuth()
+  const [preview, setPreview] = useState(user.avatar);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const fileInputRef = useRef(null);
 
-
+    function handlePictureChange(e) {
+      const file = e.target.files[0];
+      if (file) {
+        setSelectedFile(file);
+        const previewURL = URL.createObjectURL(file);
+        setPreview(previewURL);
+        const formData = new FormData();
+  
+        formData.append("avatar", file);
+      
+         uploadAvatar(formData)
+        console.log(previewURL);
+      }
+    }
+    
   
  
   return (
@@ -18,11 +37,36 @@ function Profile() {
         
     
             <div className="image-div w-full md:w-1/2 md:h-[500px] flex justify-center flex-col items-center bg-white shadow rounded-2xl gap-3 md:gap-4 py-3">
-            <div className="w-52 h-52 lg:w-64 lg:h-64 flex justify-center items-center rounded-full border border-gray-500">
-              <img src={`${user.avatar}`} className="rounded-full lg:w-64" alt="" />
+            <div className="relative w-52 h-52 lg:w-64 lg:h-64 flex justify-center items-center rounded-full border border-gray-500">
+              <img src={preview} className="rounded-full w-full h-full object-cover lg:w-64" alt="" />
+               <div onClick={()=>fileInputRef.current.click()} className="circle w-10 h-10 lg:w-12 lg:h-12 border-2 border-gray-400 flex justify-center items-center bg-gray-200 rounded-full absolute left-44 lg:left-54 top-32 lg:top-40">
+                <img src="/camera-icon.png" className="w-5 lg:w-7" alt="" />
+              </div>
+             <input
+              type="file"
+              accept="image/*"
+              name="avatar"
+              onChange={(e) => {
+                handlePictureChange(e);
+                
+              }}
+              ref={fileInputRef}
+              className="hidden"
+            />
             </div>
           <p className='text-3xl font-bold text-gray-700'>{user.name}</p>
            </div>
+           <input
+          type="file"
+          accept="image/*"
+          name="logo"
+          onChange={(e)=>{
+            handlePictureChange(e)
+            setSelectedFile(e.target.files[0])
+          }}
+          ref={fileInputRef}
+          className="hidden"
+        />
            {/* <p className='text-2xl font-medium text-gray-700 mt-2'>My Jobs</p> */}
             <div className="w-full md:w-1/2 flex flex-col items-center gap-2">
            <div className="applied-div w-full md:w-full h-40 flex justify-between flex-col items-start  bg-green-200 shadow rounded-2xl gap-3 py-4 px-4">

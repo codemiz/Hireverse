@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import { useParams } from 'react-router-dom'
 import { previewJob , applyJob } from '../api'
 import { useAuth } from '../context/AuthContext'
+import { NavLink } from 'react-router-dom'
 
 function JobPreview() {
   const {jobId} = useParams()
@@ -19,6 +20,14 @@ function JobPreview() {
   .catch(err => setJob(null))
   .finally(()=>setLoading(false))
   }, [])
+
+  useEffect(() => {
+    console.log(job);
+    
+  
+    
+  }, [job])
+  
 
   function jobApply(){
     setShowPopup(true)
@@ -61,9 +70,12 @@ function JobPreview() {
       <div className="w-[90%] lg:w-3/4 xl:w-3/5 2xl:w-2/5 bg-white shadow pt-8 pb-6 px-4 md:px-6 flex flex-col rounded-sm items-start">
           <div className='flex w-full flex-col justify-between gap-2 '>
           <h1 className='text-2xl md:text-3xl font-semibold text-gray-800'>{job.title}</h1>
-
-            <button onClick={jobApply} className={`px-4 w-32 md:w-40 py-1 ${(user && user.role == "Employee" ? "bg-blue-400" : "hidden")} text-white font-medium ${job.applicants.includes(user._id) && "hidden"} w-1/2 h-10 text-md md:text-lg rounded-md cursor-pointer`}>Apply</button>
-             <p className={`text-green-500 ${!job.applicants.includes(user._id) && "hidden"} font-thin`}>Applied.</p>
+          {job.applicants.some(obj => (obj._id == user._id)) ?
+          
+          <p className={`text-green-500 font-thin`}>Applied.</p>
+          :
+          <button onClick={jobApply} className={`px-4 w-32 md:w-40 py-1 ${(user && user.role == "Employee" ? "bg-blue-400" : "hidden")} text-white font-medium w-1/2 h-10 text-md md:text-lg rounded-md cursor-pointer`}>Apply</button>
+        }
           </div>
           
           {/* <button className="bg-blue-400 px-6 py-1.5 text-white font-medium text-md rounded-full mt-2">Apply</button> */}
@@ -86,9 +98,29 @@ function JobPreview() {
             <span className=' text-sm'><b>Additional Incentive:</b> {job.incentiveTwo}</span>
           }
           
-          <p className={`text-red-500 ${(!user || user.role == "Employer" ? "block" : "hidden")} font-thin mt-4`}>Login to apply for jobs.</p>
+          <p className={`text-red-500 ${(!user? "block" : "hidden")} font-thin mt-4`}>Login to apply for jobs.</p>
             </div>
       </div>
+      {user.role == "Employer" &&
+      <>
+        <p className="text-xl w-[90%] lg:w-3/4  xl:w-3/5 2xl:w-1/2 text-center h-10 flex justify-center items-center bg-gray-50 rounded shadow text-gray-700 mt-2">
+        Applicants ({job.applicants.length})
+      </p>
+
+       <div className="job-div bg-white w-[90%] lg:w-3/4 xl:w-3/5 2xl:w-1/2 min-h-32 border border-gray-300 rounded-2xl gap-2 shadow flex flex-col px-4 py-10 justify-between cursor-pointer items-center  hover:border-gray-500">
+       {job.applicants.map((applicant,index)=>(
+         <div className='flex hover:bg-gray-100 justify-between items-center py-4 w-full border-b border-gray-400 px-3'>
+             <p className='text-2xl font-thin text-gray-600'>{index+1}. {applicant.name}</p>
+             <NavLink to={`/applicant/resume/preview/${applicant.resume}`} className={`px-4 py-1 text-white font-thin bg-blue-400 text-sm md:text-md rounded-md cursor-pointer`}>view resume</NavLink>
+            
+            </div>
+       ))}
+           
+            
+           
+        </div>
+       </>
+      }
     </div>
   )
 }

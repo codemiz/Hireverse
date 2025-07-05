@@ -20,7 +20,7 @@ function Resume() {
         <div className="image-div w-11/12 flex justify-center md:justify-start ">
         <div className="w-52 h-52 rounded-full mb-12">
             
-          <img src="./profile-pic.jpg" className="rounded-full" alt="" />
+          <img src={user.resume.pictureURL} className="rounded-full" alt="" />
           
         </div>
         </div>

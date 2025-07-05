@@ -34,7 +34,7 @@ function Header() {
           <NavLink to={"/resume"}>Resume</NavLink>
           
          <NavLink to={"/profile"}>
-         <img src="/profile-pic.jpg" width={25} alt="" />
+         <img src={user.avatar} className='rounded-full border border-gray-400 w-6 h-6' alt="" />
          </NavLink>
           
           </>

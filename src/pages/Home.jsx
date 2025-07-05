@@ -18,7 +18,7 @@ const {jobs,jobsLoading} = useAuth()
         <div className='flex w-full bg-white h-1/2 justify-between border-[1px] rounded-2xl border-gray-300'>
         <input type="text" className='w-3/6 border-r-[1px] border-gray-300 px-5 text-md md:text-lg' placeholder='Search job' />
 
-        <select name="city" id="" className='text-gray-600 w-2/6 px-3'>
+        <select name="city" id="" className='text-gray-600 w-2/6 px-3 appearance-none'>
           <option value="None">Select City</option>
           <option value="isl">Islamabad</option>
           <option value="rwp">Rawalpindi</option>

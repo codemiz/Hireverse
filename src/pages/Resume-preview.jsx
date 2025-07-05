@@ -1,91 +1,44 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useState  } from 'react'
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useAuth } from "../context/AuthContext";
-import { editResume } from '../api';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from "react-router-dom";
-function CvEditor() {
-  const {setUser , user} = useAuth()
-  const navigate = useNavigate()
-  const [preview, setPreview] = useState("/profile-pic.jpg");
-  const [ selectedFile, setSelectedFile ] = useState(null);
-  const fileInputRef = useRef(null);
+import { NavLink } from "react-router-dom";
+import { useParams } from 'react-router-dom';
+import { previewResume } from '../api';
 
-  const {register  , setError , handleSubmit , formState : {errors , isSubmitting}} = useForm()
+function ResumePreview() {
+    const {user} = useAuth()
+    const {resumeId} = useParams()
+    const [resume, setResume] = useState()
+    const [loading, setLoading] = useState(true)
 
-  function handlePictureChange(e) {
-    const file = e.target.files[0];
-    if (file) {
-      const previewURL = URL.createObjectURL(file);
-      setPreview(previewURL);
-      console.log(previewURL);
-    }
-  }
-
-  async function formSubmit (data) {
-
-     try {
-          const formData = new FormData();
+    useEffect(() => {
+      
+       previewResume(resumeId)
+        .then(res => setResume(res.data.resume))
+        .catch(err => setResume(null))
+        .finally(()=>setLoading(false))
+     
+    }, [])
     
-          formData.append("firstName", data.firstName);
-          formData.append("lastName", data.lastName);
-          formData.append("skill", data.skill);
-          formData.append("about", data.about);
-          formData.append("degree", data.degree);
-          formData.append("institute", data.institute);
-          formData.append("gpa", data.gpa);
-          formData.append("number", data.number);
-          formData.append("email", data.email);
-          formData.append("jobTitle", data.jobTitle);
-          formData.append("company", data.company);
-          formData.append("workYears", data.workYears);
-          formData.append("languages", data.languages);
-    
-          if (selectedFile) {
-            formData.append("cvPic", selectedFile);
-          }
-          
-    
-          const res = await editResume(formData);
-          setUser(res.data.user);
-          setTimeout(() => {
-            navigate("/resume");
-          }, 400);
-        } catch (error) {
-          console.error(error);
-        }
-
-  }
+     if (loading) return <p>loading Resume</p>
   return (
-   <div className="w-full h-[1400px] bg-blue-50 flex flex-col gap-2 items-center pt-20">
-         <Header />
-       
-         <p className="text-3xl font-semibold">Create your resume</p>
-         <hr className="text-gray-400 w-[90%] my-4" />
-        <div className="cv w-[90%] lg:w-3/4 xl:w-3/5 2xl:w-1/2 bg-white shadow py-14 px-2 md:px-6 flex flex-col items-center">
+    <div className="w-full h-[1500px] bg-blue-50 flex flex-col gap-2 items-center pt-20">
+      <Header />
+     
+      
+      <p className="text-3xl font-semibold">Applicant's resume</p>
+      <hr className="text-gray-400 w-[90%] my-4" />
+      <div className="cv w-[90%] lg:w-3/4 xl:w-3/5 2xl:w-1/2 bg-white shadow py-14 px-2 md:px-6 flex flex-col items-center">
         <div className="image-div w-11/12 flex justify-center md:justify-start ">
         <div className="w-52 h-52 rounded-full mb-12">
             
-          <img src={preview} className="rounded-full" alt="" />
-          <div  onClick={() => fileInputRef.current.click()} className="circle w-12 h-12 border-2 border-gray-400 flex justify-center items-center bg-gray-200 rounded-full relative left-40 top-[-70px]">
-            <img src="/camera-icon.png" width={30} alt="" />
-          </div>
+          <img src={resume.pictureURL} className="rounded-full" alt="" />
+          
         </div>
-         <input
-          type="file"
-          accept="image/*"
-          name="logo"
-          onChange={(e)=>{
-            handlePictureChange(e)
-            setSelectedFile(e.target.files[0])
-          }}
-          ref={fileInputRef}
-          className="hidden"
-        />
         </div>
 
-        <form onSubmit={handleSubmit(formSubmit)} className="flex w-11/12 flex-col gap-4 justify-center items-center">
+        <div className="flex w-11/12 flex-col gap-4 justify-center text-gray-600 items-center">
           <div className="name-div flex w-full gap-2">
             <div className="w-2/4">
               <label
@@ -96,8 +49,9 @@ function CvEditor() {
               </label>
               <input
                 type="text"
-                {...register("firstName")}
-                className="w-full md:w-4/5 border border-gray-400  rounded-md h-10 px-2"
+                value={resume.firstName}
+                disabled
+                className="w-full text-gray-600 md:w-4/5 border border-gray-400  rounded-md h-10 px-2"
               />
             </div>
 
@@ -112,8 +66,9 @@ function CvEditor() {
                 </label>
                 <input
                   type="text"
-                   {...register("lastName")}
-                  className="w-full border border-gray-400  rounded-md h-10 px-2"
+                  value={resume.lastName}
+                  disabled
+                  className="w-full border text-gray-600 border-gray-400  rounded-md h-10 px-2"
                 />
               </div>
             </div>
@@ -124,8 +79,8 @@ function CvEditor() {
             </label>
             <textarea
               name="about"
-              id=""
-               {...register("about")}
+              value={resume.about}
+              disabled
               rows={5}
               cols={100}
               className="border w-full px-2 py-1 rounded-md border-gray-400"
@@ -138,15 +93,16 @@ function CvEditor() {
             </label>
             <textarea
               name="about"
-              id=""
+              value={resume.skill}
+              disabled
               rows={1}
-               {...register("skill")}
               cols={100}
               className="border w-full px-2 py-1 rounded-md border-gray-400"
               maxLength={25}
               placeholder="i.e Graphics Designer"
             ></textarea>
           </div>
+
           <div className="education-div flex flex-col md:flex-row w-full gap-1">
             <div className="w-full md:w-2/6">
               <label
@@ -157,7 +113,8 @@ function CvEditor() {
               </label>
               <input
                 type="text"
-                 {...register("degree")}
+                value={resume.degree}
+                disabled
                 placeholder="Degree name"
                 className="w-full border border-gray-400  rounded-md h-10 px-2"
               />
@@ -166,7 +123,8 @@ function CvEditor() {
             <div className="w-full md:w-3/6 flex flex-col items-end justify-end">
                 <input
                   type="text"
-                   {...register("institute")}
+                   value={resume.institute}
+                   disabled
                   placeholder="Institute"
                   className="w-full border border-gray-400  rounded-md h-10 px-2"
                 />
@@ -174,7 +132,8 @@ function CvEditor() {
             <div className="w-full md:w-1/6 flex flex-col items-end justify-end">
                 <input
                   type="text"
-                   {...register("gpa")}
+                   value={resume.gpa}
+                   disabled
                   placeholder="Marks/GPA"
                   className="w-full border border-gray-400  rounded-md h-10 px-2"
                 />
@@ -190,7 +149,8 @@ function CvEditor() {
               </label>
               <input
                 type="text"
-                 {...register("number")}
+                 value={resume.mobileNumber}
+                 disabled
                 maxLength={11}
                 className="w-full md:w-4/5 border border-gray-400  rounded-md h-10 px-2"
               />
@@ -207,8 +167,9 @@ function CvEditor() {
                 </label>
                 <input
                   type="text"
-                  {...register("email")}
-                  className="w-full border border-gray-400 rounded-md h-10 px-2"
+                  disabled
+                   value={resume.email}
+                  className="w-full border border-gray-400 rounded-md h-10 px-2 text-gray-600"
                 />
               </div>
             </div>
@@ -223,7 +184,8 @@ function CvEditor() {
               </label>
               <input
                 type="text"
-                 {...register("jobTitle")}
+                 value={resume.exJobTitle}
+                 disabled
                 placeholder="Job title"
                 className="w-full border border-gray-400  rounded-md h-10 px-2"
               />
@@ -232,7 +194,8 @@ function CvEditor() {
             <div className="w-full md:w-2/5 flex flex-col items-end justify-end">
                 <input
                   type="text"
-                   {...register("company")}
+                   value={resume.exCompany}
+                   disabled
                   placeholder="Company name"
                   className="w-full border border-gray-400  rounded-md h-10 px-2"
                 />
@@ -240,20 +203,22 @@ function CvEditor() {
             <div className="w-full md:w-1/5 flex flex-col items-end justify-end">
                 <input
                   type="text"
-                   {...register("workYears")}
+                   value={resume.workYears}
+                   disabled
                   placeholder="Working years"
                   className="w-full border border-gray-400  rounded-md h-10 px-2"
                 />
             </div>
           </div>
+         
           <div className="languages w-full flex flex-col">
             <label htmlFor="name" className="text-lg font-medium text-gray-700">
               Languages:
             </label>
             <textarea
               name="languages"
-               {...register("languages")}
-              id=""
+              value={resume.languages}
+              disabled
               rows={1}
               cols={100}
               className="border w-full px-2 py-1 rounded-md border-gray-400"
@@ -262,15 +227,16 @@ function CvEditor() {
             ></textarea>
           </div>
           
-         <div className="buttons w-[90%] flex gap-2 justify-center mt-2">
-           <button type='submit' className="bg-blue-400 px-10 py-1 text-white font-medium h-10 text-lg rounded-md">Save</button>
-         </div>
-        </form>
+        </div>
       </div>
-         
-       <Footer />
-       </div>
+      <div className="buttons w-[90%] flex gap-2 justify-center mt-2">
+        <button className="bg-blue-400 px-4 py-1 text-white font-medium h-10 text-lg rounded-md">Invite for interview</button>
+      </div>
+    
+      
+    <Footer />
+    </div>
   )
 }
 
-export default CvEditor
+export default ResumePreview
