@@ -17,6 +17,8 @@ export const verifyCode = (data) => api.post("/verify/email" , data)
 export const googleLogin = (token , role) => api.post(`/api/auth/google-login/${role}` , {token})
 export const editResume = (data) => api.post("/api/resume/edit" , data)
 export const postJob = (data) => api.post("/api/job/post" , data)
+export const sendInterviewInvite = (data) => api.post("/api/interview/invite" , data)
+export const rejectApplicant = (jobID,applicantID) => api.post("/api/job/reject" , {jobID,applicantID})
 export const editCompany = (data) => api.post("/api/company/edit" , data , {
     headers: {
         "Content-Type" : "multipart/form-data"

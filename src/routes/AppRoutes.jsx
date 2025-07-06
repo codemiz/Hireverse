@@ -78,7 +78,7 @@ function AppRoutes() {
               <CompanyProfileUpdate />
             </EmployerOnly>
           } />
-          <Route path="/applicant/resume/preview/:resumeId" element={
+          <Route path="/applicant/resume/preview/:resumeId/:applyJobId" element={
             <EmployerOnly>
               <ResumePreview />
             </EmployerOnly>

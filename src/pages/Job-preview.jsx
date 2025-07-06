@@ -70,12 +70,14 @@ function JobPreview() {
       <div className="w-[90%] lg:w-3/4 xl:w-3/5 2xl:w-2/5 bg-white shadow pt-8 pb-6 px-4 md:px-6 flex flex-col rounded-sm items-start">
           <div className='flex w-full flex-col justify-between gap-2 '>
           <h1 className='text-2xl md:text-3xl font-semibold text-gray-800'>{job.title}</h1>
-          {job.applicants.some(obj => (obj._id == user._id)) ?
+          {user && 
+          job.applicants.some(obj => (obj._id == user._id)) ?
+            
+            <p className={`text-green-500 font-thin`}>Applied.</p>
+            :
+            <button onClick={jobApply} className={`px-4 w-32 md:w-40 py-1 ${(user && user.role == "Employee" ? "bg-blue-400" : "hidden")} text-white font-medium w-1/2 h-10 text-md md:text-lg rounded-md cursor-pointer`}>Apply</button>
           
-          <p className={`text-green-500 font-thin`}>Applied.</p>
-          :
-          <button onClick={jobApply} className={`px-4 w-32 md:w-40 py-1 ${(user && user.role == "Employee" ? "bg-blue-400" : "hidden")} text-white font-medium w-1/2 h-10 text-md md:text-lg rounded-md cursor-pointer`}>Apply</button>
-        }
+          }
           </div>
           
           {/* <button className="bg-blue-400 px-6 py-1.5 text-white font-medium text-md rounded-full mt-2">Apply</button> */}
@@ -101,7 +103,7 @@ function JobPreview() {
           <p className={`text-red-500 ${(!user? "block" : "hidden")} font-thin mt-4`}>Login to apply for jobs.</p>
             </div>
       </div>
-      {user.role == "Employer" &&
+      { (user && user.role == "Employer") &&
       <>
         <p className="text-xl w-[90%] lg:w-3/4  xl:w-3/5 2xl:w-1/2 text-center h-10 flex justify-center items-center bg-gray-50 rounded shadow text-gray-700 mt-2">
         Applicants ({job.applicants.length})
@@ -111,7 +113,7 @@ function JobPreview() {
        {job.applicants.map((applicant,index)=>(
          <div className='flex hover:bg-gray-100 justify-between items-center py-4 w-full border-b border-gray-400 px-3'>
              <p className='text-2xl font-thin text-gray-600'>{index+1}. {applicant.name}</p>
-             <NavLink to={`/applicant/resume/preview/${applicant.resume}`} className={`px-4 py-1 text-white font-thin bg-blue-400 text-sm md:text-md rounded-md cursor-pointer`}>view resume</NavLink>
+             <NavLink to={`/applicant/resume/preview/${applicant.resume}/${job._id}`} className={`px-4 py-1 text-white font-thin bg-blue-400 text-sm md:text-md rounded-md cursor-pointer`}>view resume</NavLink>
             
             </div>
        ))}

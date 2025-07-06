@@ -9,6 +9,7 @@ import { uploadAvatar } from "../api";
 function Profile() {
   const {user} = useAuth()
   const [preview, setPreview] = useState(user.avatar);
+  const [status, setStatus] = useState("Applied");
     const [selectedFile, setSelectedFile] = useState(null);
     const fileInputRef = useRef(null);
 
@@ -97,22 +98,51 @@ function Profile() {
        </div>
          {/* <p className='text-xl w-[90%] lg:w-3/4  xl:w-3/5 2xl:w-1/2 text-center font-medium text-gray-700 mt-2'>My jobs</p> */}
          <div className='text-md w-[90%] lg:w-3/4  xl:w-3/5 2xl:w-1/2 flex justify-between bg-white rounded shadow overflow-hidden font-thin text-gray-700 mt-2'>
-         <div className='w-1/3 hover:bg-gray-100 py-1 bg-gray-200 text-center'>Applied</div>
-         <div className='w-1/3 hover:bg-gray-100 py-1 border-x border-gray-400 text-center'>Interviews</div>
-         <div className='w-1/3 hover:bg-gray-100 py-1 text-center'>Rejected</div>
+         <div onClick={()=>setStatus("Applied")} className={`w-1/2 hover:bg-gray-100 cursor-pointer py-1 ${status=="Applied" ? "bg-gray-200" : "bg-white"} bg-gray-200 text-center`}>Applied</div>
+         <div onClick={()=>setStatus("Interviews")} className={`w-1/2 hover:bg-gray-100 cursor-pointer py-1 ${status=="Interviews" ? "bg-gray-200" : "bg-white"} border-l border-gray-400 text-center`}>Interviews</div>
+        
          </div>
 
+          {status == "Applied" ? 
+            user.appliedJobs.length > 0 ? (
+              user.appliedJobs.map((job,index)=>(
+                
+                <Job key={job._id} title={job.title} description={job.description} company={job.company} education={job.education} age={job.age} salary={job.salary} experience={job.experience} location={job.location}  isVerified={job.verifiedCompany} jobID={job._id}/>
+              ))
+            ) : (
+              <p className="font-light text-md mt-3">
+              You have not applied to any jobs yet.
+              </p>
+            ) :
+            user.interviews.length > 0 ? (
+              user.interviews.map((interview,index)=>(
+                
+              <div className='w-full flex flex-col gap-4 items-center py-2'>
 
-            {user.appliedJobs.length > 0 ? (
-                    user.appliedJobs.map((job,index)=>(
-            
-                       <Job key={job._id} title={job.title} description={job.description} company={job.company} education={job.education} age={job.age} salary={job.salary} experience={job.experience} location={job.location}  isVerified={job.verifiedCompany} jobID={job._id}/>
-                    ))
-                  ) : (
-                    <p className="font-light text-md mt-3">
-                      You have not posted any jobs yet.
-                    </p>
-                  )}
+                     <div className="job-div relative bg-white w-[90%] lg:w-3/4 xl:w-3/5 2xl:w-1/2 min-h-48 border border-gray-300 rounded-2xl shadow flex flex-col pl-4 pr-8 py-3 justify-between cursor-pointer hover:bg-gray-100 hover:border-gray-500">
+                        <div>
+                        <h1 className='text-2xl font-semibold text-gray-800 mt-1'>Job : {interview.jobTitle}</h1>
+                        <p className='text-xl font-medium flex items-center gap-1'>company <img src="/check.png" className='mt-1' width={14} alt="check=mark" /></p>
+                        <p className='text-sm font-light'>{interview.location}</p>
+
+                        <p className='text-sm font-normal mt-2'>{interview.notes}</p>
+                        </div>
+                        <div className='w-full mt-2 flex flex-wrap gap-1.5 xl:gap-3'>
+                        <span className='bg-gray-200  text-sm px-3 py-1 rounded-2xl'>{interview.date}</span>
+                        <span className='bg-gray-200  text-sm px-3 py-1 rounded-2xl'>{interview.time}</span>
+                        <span className={`${interview.status == "Active" ? 'bg-green-600' : 'bg-red-600'} absolute right-4 bottom-3 font-medium text-white text-md px-5 py-1 rounded-2xl`}>{interview.status}</span>
+                        </div>
+                    </div>
+      
+       
+               </div>
+              ))
+            ) : (
+              <p className="font-light text-md mt-3">
+              You have not applied to any jobs yet.
+              </p>
+            )
+          }
       <Footer />
     </div>
   )
