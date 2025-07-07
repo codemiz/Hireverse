@@ -2,13 +2,13 @@ import React from "react";
 import Footer from "../components/Footer";
 import { useForm } from "react-hook-form";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-
 import axios from "axios"
 import { useState } from "react";
 import { login } from "../api";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import GoogleLoginButton from "../components/GoogleLoginButton";
+import { NavLink } from "react-router-dom";
 
 function Login() {
   const [selectetedRole, setSelectetedRole] = useState("Employee")
@@ -55,7 +55,7 @@ function Login() {
         className="absolute left-2 top-2"
         alt=""
       />
-      <div className="w-11/12 sm:w-9/12 md:w-8/12 lg:w-5/12 xl:w-4/12 2xl:w-[28%] min-h-[55%] bg-white shadow flex flex-col items-center pt-8 pb-2 rounded-2xl gap-4">
+      <div className="w-11/12 sm:w-9/12 md:w-8/12 lg:w-5/12 xl:w-4/12 2xl:w-[20%] min-h-[45%] bg-white shadow flex flex-col items-center pt-8 pb-2 rounded-2xl gap-4">
         <div className="text-3xl text-gray-500 font-bold mb-2">
           Welcome to jobnest.
         </div>
@@ -105,10 +105,10 @@ function Login() {
             Submit
           </button>
         <div className="flex justify-between w-4/5">
-          <div className="text-md font-light text-blue-400">Register</div>
-          <div className="text-md font-light text-blue-400">
+          <NavLink to={"/onboarding"} className="text-md font-light text-blue-400">Register</NavLink>
+          <NavLink to={"/password/reset"} className="text-md font-light text-blue-400">
             Forgot Password?
-          </div>
+          </NavLink>
         </div>
         </form>
       </div>

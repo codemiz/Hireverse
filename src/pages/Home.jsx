@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 import { useAuth } from '../context/AuthContext'
 
 function Home() {
-const {jobs = [],jobsLoading} = useAuth()
+const {jobs,jobsLoading} = useAuth()
 const [search, setSearch] = useState("")
 const [city, setCity ]= useState("None")
   
@@ -17,8 +17,7 @@ const filteredJobs = jobs.filter(job =>{
   return matchesTitle && matchesCity
 })
   
-if (jobsLoading || !jobs) return <p>Loading jobs...</p>
-
+  if( jobsLoading) return <p>loading jobs</p>
   return (
     <div className='w-full min-h-screen bg-blue-50 flex flex-col gap-2 items-center py-20'>
      
@@ -33,7 +32,7 @@ if (jobsLoading || !jobs) return <p>Loading jobs...</p>
           <option value="rwp">Rawalpindi</option>
           <option value="lhr">Lahore</option>
           <option value="kar">karachi</option>
-          <option value="kar">Multan</option>
+          <option value="multan">Multan</option>
         </select>
       <button className='w-1/6 bg-blue-400 text-white text-md md:text-xl font-semibold rounded-r-2xl cursor-pointer'>Search</button>
         </div>

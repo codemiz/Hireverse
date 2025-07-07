@@ -19,6 +19,7 @@ import CvEditor from '../pages/Cv-editor';
 import Admin from '../pages/Admin';
 import CompanyProfileUpdate from '../pages/Company-profile-update';
 import ResumePreview from '../pages/Resume-preview';
+import PasswordReset from '../components/Password-reset';
 function AppRoutes() {
 
      const {user} = useAuth()
@@ -30,6 +31,7 @@ function AppRoutes() {
       }, [user])
   return (
    <Routes>
+          <Route path="/password/reset" element={<PasswordReset />} />
           <Route path="/" element={<Home />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/job/preview/:jobId" element={<JobPreview />} />
