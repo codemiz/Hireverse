@@ -28,7 +28,7 @@ function Login() {
       console.log("user data is" , user);
       
       setTimeout(() => {
-            navigate("/profile")
+            navigate("/")
             
           }, 200);
    } catch (error) {

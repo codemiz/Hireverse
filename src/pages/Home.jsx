@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import { getLatestJobs } from '../api'
 import { useEffect } from 'react'
 import { useAuth } from '../context/AuthContext'
+import Loading from '../components/Loading'
 
 function Home() {
 const {jobs,jobsLoading} = useAuth()
@@ -17,7 +18,7 @@ const filteredJobs = jobs.filter(job =>{
   return matchesTitle && matchesCity
 })
   
-  if( jobsLoading) return <p>loading jobs</p>
+  if( jobsLoading) return <Loading />
   return (
     <div className='w-full min-h-screen bg-blue-50 flex flex-col gap-2 items-center py-20'>
      

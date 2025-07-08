@@ -56,8 +56,8 @@ async function logoutUser(){
           <>
           <NavLink to={"/employer/post-job"}>Post a job</NavLink>
           <NavLink to={"/employer/company"}>Company</NavLink>
-          
-         <NavLink to={"/employer/profile"}>
+          <button onClick={logoutUser}>Logout</button>
+         <NavLink to={"/profile"}>
          <img src={user.avatar} className='rounded-full border border-gray-400 w-6 h-6' alt="" />
          </NavLink>
           </>
