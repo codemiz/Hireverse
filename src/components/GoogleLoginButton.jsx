@@ -20,8 +20,7 @@ function GoogleLoginButton({role}) {
             nevigate("/profile")
             
           }, 100);
-          console.log("User" , user);
-          console.log("token" , token);
+         
           
           
         } catch (error) {

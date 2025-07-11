@@ -21,16 +21,11 @@ export const AuthProvider = ({ children }) => {
     getLatestJobs()
       .then((res) => {
         setJobs(res.data.jobs);
-        console.log(jobs);
         
       })
       .catch((err) => setJobs(null))
       .finally(()=>setJobsLoading(false))
   }, []);
-
-  useEffect(() => {
-    console.log("jobs updated:", jobs);
-  }, [jobs]);
 
   return (
     <AuthContext.Provider value={{ user, setUser , loading ,jobs ,setJobs , jobsLoading }}>

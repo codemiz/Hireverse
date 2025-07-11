@@ -26,7 +26,7 @@ function Login() {
    try {
       const res = await login(data)
       setUser(res.data.user)
-      console.log("user data is" , user);
+      
       
       setTimeout(() => {
             navigate("/")
@@ -50,10 +50,7 @@ function Login() {
   }
 
 
-  useEffect(() => {
-    console.log(import.meta.env.VITE_FIREBASE_API_KEY);
-    
-  }, [])
+
   
   return (
     <div className="w-full h-screen bg-blue-50 flex flex-col gap-2 justify-center items-center">
@@ -74,7 +71,7 @@ function Login() {
         
         {/* <div className="text-md font-light">Sign in using google</div>         */}
         <hr className="text-gray-400 w-4/5 my-3" />
-        <GoogleLoginButton role="any" />
+        <GoogleLoginButton role="Employee" />
         <div className="text-md font-light">or</div>
         <form
           className="w-full flex flex-col items-center gap-4"
