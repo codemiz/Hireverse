@@ -16,7 +16,7 @@ import PostJob from "../pages/Post-job";
 import Resume from "../pages/Resume";
 import JobPreview from "../pages/Job-preview";
 import CvEditor from "../pages/Cv-editor";
-import Admin from "../pages/Admin";
+
 import CompanyProfileUpdate from "../pages/Company-profile-update";
 import ResumePreview from "../pages/Resume-preview";
 import PasswordReset from "../components/Password-reset";
@@ -38,7 +38,6 @@ function AppRoutes() {
       <Route path="/loading" element={<Loading />} />
       <Route path="/" element={<Home />} />
       <Route path="/password/reset" element={<PasswordReset />} />
-      <Route path="/admin" element={<Admin />} />
       <Route path="/job/preview/:jobId" element={<JobPreview />} />
       <Route
         path="/cv/edit"
