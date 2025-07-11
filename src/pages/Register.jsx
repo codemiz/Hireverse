@@ -51,7 +51,7 @@ function Register() {
       <img
         src="./logo2.png"
         width={100}
-        className="absolute left-2 top-2"
+        className=""
         alt=""
       />
 
@@ -61,18 +61,17 @@ function Register() {
           Welcome to jobnest.
         </div>
         <p className="font-light text-md">
-          Login to your account or{" "}
-          <span className="text-blue-400">sign up</span>
+         Select a role before signing up
         </p>
         <div className="flex w-[80%] justify-between h-12 ">
           <button onClick={() => setSelectetedRole("Employee")} className={`options border-[1px] ${selectetedRole=="Employee" ? "border-blue-400 bg-blue-50" : "border-gray-400"} cursor-pointer rounded-md flex w-[45%] py-1 px-2 text-lg text-gray-8900 items-center justify-center font-semibold hover:border-2`}>
-            Employee Login
+            Employee
           </button>
           <button onClick={() => setSelectetedRole("Employer")} className={`options border-[1px] ${selectetedRole=="Employer" ? "border-blue-400 bg-blue-50" : "border-gray-400"} cursor-pointer rounded-md flex w-[45%] py-1 px-2 text-lg text-gray-700 items-center justify-center font-semibold hover:border-2`}>
-            Employer Login
+            Employer
           </button>
         </div>
-        {/* <div className="text-md font-light">Sign in using google</div>         */}
+        {/* <div className="text-md font-light">Sign in using google</div>*/}
         <hr className="text-gray-400 w-4/5 my-3" />
         <GoogleLoginButton role={selectetedRole} />
         <div className="text-md font-light">or</div>

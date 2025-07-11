@@ -75,8 +75,10 @@ function JobPreview() {
             
             <p className={`text-green-500 font-thin`}>Applied.</p>
             :
+            user.resume ? 
             <button onClick={jobApply} className={`px-4 w-32 md:w-40 py-1 ${(user && user.role == "Employee" ? "bg-blue-400" : "hidden")} text-white font-medium w-1/2 h-10 text-md md:text-lg rounded-md cursor-pointer`}>Apply</button>
-          
+            :
+            <p className={`font-thin`}>Create your resume before applying.</p>
           }
           </div>
           
@@ -112,9 +114,12 @@ function JobPreview() {
        <div className="job-div bg-white w-[90%] lg:w-3/4 xl:w-3/5 2xl:w-1/2 min-h-32 border border-gray-300 rounded-2xl gap-2 shadow flex flex-col px-4 py-10 justify-between cursor-pointer items-center  hover:border-gray-500">
        {job.applicants.map((applicant,index)=>(
          <div className='flex hover:bg-gray-100 justify-between items-center py-4 w-full border-b border-gray-400 px-3'>
-             <p className='text-2xl font-thin text-gray-600'>{index+1}. {applicant.name}</p>
+             <p className='text-2xl text-gray-600'>{index+1}. {applicant.name}</p>
+             {applicant.resume ?
              <NavLink to={`/applicant/resume/preview/${applicant.resume}/${job._id}`} className={`px-4 py-1 text-white font-thin bg-blue-400 text-sm md:text-md rounded-md cursor-pointer`}>view resume</NavLink>
-            
+            :
+             <p className='text-sm font-thin text-gray-600'>No resume</p>
+            }
             </div>
        ))}
            

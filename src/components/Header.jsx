@@ -5,10 +5,12 @@ import { signOut } from 'firebase/auth'
 import { Auth } from '../firebase'
 import { useNavigate } from 'react-router-dom'
 import { logout } from '../api'
+import { useState } from 'react'
 
 function Header() {
-   const navigate = useNavigate()
+  const navigate = useNavigate()
   const {user, loading , setUser} = useAuth()
+   const [showPanel , setShowPanel]= useState(false)
 
 async function logoutUser(){
  await signOut(Auth)
@@ -31,7 +33,46 @@ async function logoutUser(){
   return (
     <header className='w-full absolute top-0 h-16 shadow-md flex justify-between px-7 items-center bg-white '>
         <div>JobNext.</div>
-        <nav className='flex gap-6 font-light'>
+        {showPanel && 
+        
+        <div className="panel absolute shadow top-16 right-0 z-10 w-3/4 h-screen bg-white px-3">
+         <nav className='flex flex-col items-start text-lg font-medium mt-6'>
+
+          
+          {!user  && 
+          <>
+          <NavLink className={"border-b w-full py-4 hover:bg-gray-100 active:bg-gray-100"} to={"/"}>Browse Jobs</NavLink>
+          <NavLink className={"border-b w-full py-4 hover:bg-gray-100 active:bg-gray-100"} to={"/employer/post-job"}>Post a job</NavLink>
+          <NavLink className={"border-b w-full py-4 hover:bg-gray-100 active:bg-gray-100"} to={"/login"}>Login</NavLink>
+          </>
+          }
+          {(user && user.role=="Employee") && 
+          <>
+          <NavLink className={"border-b w-full py-4 hover:bg-gray-100 active:bg-gray-100"} to={"/profile"}>Profile </NavLink>
+          <NavLink className={"border-b w-full py-4 hover:bg-gray-100 active:bg-gray-100"} to={"/"}>Browse Jobs</NavLink>
+          <NavLink className={"border-b w-full py-4 hover:bg-gray-100 active:bg-gray-100"} to={"/profile"}>My Jobs</NavLink>
+          <NavLink className={"border-b w-full py-4 hover:bg-gray-100 active:bg-gray-100"} to={"/resume"}>Resume</NavLink>
+          <NavLink className={"border-b w-full py-4 hover:bg-gray-100 active:bg-gray-100"} onClick={logoutUser}>Logout</NavLink>
+          
+          </>
+          }
+          {(user && user.role == "Employer" )&&
+          <>
+          <NavLink className={"border-b w-full py-4 hover:bg-gray-100 active:bg-gray-100"} to={"/profile"}>Profile </NavLink>
+          <NavLink className={"border-b w-full py-4 hover:bg-gray-100 active:bg-gray-100"} to={"/"}>Browse Jobs</NavLink>
+          <NavLink className={"border-b w-full py-4 hover:bg-gray-100 active:bg-gray-100"} to={"/employer/post-job"}>Post a job</NavLink>
+          <NavLink className={"border-b w-full py-4 hover:bg-gray-100 active:bg-gray-100"} to={"/employer/company"}>My Company</NavLink>
+          <NavLink className={"border-b w-full py-4 hover:bg-gray-100 active:bg-gray-100"} onClick={logoutUser}>Logout</NavLink>
+          
+          
+          </>
+          }
+        </nav>
+        </div>
+
+         }
+        <img src="/menu.png" onClick={()=>setShowPanel(!showPanel)} width={25} className='sm:hidden cursor-pointer hover:animate-pulse' alt="menu icon" />
+        <nav className='hidden sm:flex gap-6 font-light'>
 
           <NavLink to={"/"}>Browse Jobs</NavLink>
           {!user  && 

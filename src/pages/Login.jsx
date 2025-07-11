@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import GoogleLoginButton from "../components/GoogleLoginButton";
 import { NavLink } from "react-router-dom";
+import { useEffect } from "react";
 
 function Login() {
   const [selectetedRole, setSelectetedRole] = useState("Employee")
@@ -47,6 +48,13 @@ function Login() {
     }
    }
   }
+
+
+  useEffect(() => {
+    console.log(import.meta.env.VITE_FIREBASE_API_KEY);
+    
+  }, [])
+  
   return (
     <div className="w-full h-screen bg-blue-50 flex flex-col gap-2 justify-center items-center">
       <img

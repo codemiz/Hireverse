@@ -139,7 +139,7 @@ function Profile() {
               ))
             ) : (
               <p className="font-light text-md mt-3">
-              You have not applied to any jobs yet.
+              You have recieved any interview invites yet.
               </p>
             )
           }
