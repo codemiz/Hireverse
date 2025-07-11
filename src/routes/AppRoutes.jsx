@@ -1,22 +1,18 @@
 import React, { useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import PrivateRoute from "../components/privateRoute";
+import PrivateRoute from "../components/PrivateRoute";
 import { useAuth } from "../context/AuthContext";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import Profile from "../pages/Profile";
 import Verification from "../pages/Verification";
 import PublicRoute from "../components/PublicRoute";
 import EmployerOnly from "../components/EmployerOnly";
-import EmployerProfile from "../pages/Employer-profile";
 import CompanyProfile from "../pages/Company-profile";
-import Job from "../pages/Job";
 import PostJob from "../pages/Post-job";
 import Resume from "../pages/Resume";
 import JobPreview from "../pages/Job-preview";
 import CvEditor from "../pages/Cv-editor";
-
 import CompanyProfileUpdate from "../pages/Company-profile-update";
 import ResumePreview from "../pages/Resume-preview";
 import PasswordReset from "../components/Password-reset";
