@@ -41,7 +41,7 @@ function Profile() {
             <div className="relative w-52 h-52 lg:w-64 lg:h-64 flex justify-center items-center rounded-full border border-gray-500">
               <img src={preview} className="rounded-full w-full h-full object-cover lg:w-64" alt="" />
                <div onClick={()=>fileInputRef.current.click()} className="circle w-10 h-10 lg:w-12 lg:h-12 border-2 border-gray-400 flex justify-center items-center bg-gray-200 rounded-full absolute left-44 lg:left-54 top-32 lg:top-40">
-                <img src="/camera-icon.png" className="w-5 lg:w-7" alt="" />
+                <img src="/camera-icon.png" className="w-5 lg:w-7 cursor-pointer" alt="" />
               </div>
              <input
               type="file"
