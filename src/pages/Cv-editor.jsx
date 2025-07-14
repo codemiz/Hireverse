@@ -268,7 +268,7 @@ function CvEditor() {
         </form>
       </div>
          
-       <Footer />
+      
        </div>
   )
 }

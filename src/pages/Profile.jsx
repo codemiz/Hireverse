@@ -10,10 +10,13 @@ function Profile() {
   const {user} = useAuth()
   const [preview, setPreview] = useState(user.avatar);
   const [status, setStatus] = useState("Applied");
+  const [isUploading, setIsUploading] = useState(false);
+
     const [selectedFile, setSelectedFile] = useState(null);
     const fileInputRef = useRef(null);
 
-    function handlePictureChange(e) {
+    async function handlePictureChange(e) {
+      setIsUploading(true)
       const file = e.target.files[0];
       if (file) {
         setSelectedFile(file);
@@ -23,7 +26,8 @@ function Profile() {
   
         formData.append("avatar", file);
       
-         uploadAvatar(formData)
+         await uploadAvatar(formData)
+         setIsUploading(false)
         console.log(previewURL);
       }
     }
@@ -41,7 +45,11 @@ function Profile() {
             <div className="relative w-52 h-52 lg:w-64 lg:h-64 flex justify-center items-center rounded-full border border-gray-500">
               <img src={preview} className="rounded-full w-full h-full object-cover lg:w-64" alt="" />
                <div onClick={()=>fileInputRef.current.click()} className="circle w-10 h-10 lg:w-12 lg:h-12 border-2 border-gray-400 flex justify-center items-center bg-gray-200 rounded-full absolute left-44 lg:left-54 top-32 lg:top-40">
+                {isUploading ? 
+                <div className="w-6 h-6 border-3 border-gray-100 border-t-3 animate-spin border-t-gray-400 rounded-full"></div>
+              :
                 <img src="/camera-icon.png" className="w-5 lg:w-7 cursor-pointer" alt="" />
+              }
               </div>
              <input
               type="file"
@@ -128,8 +136,9 @@ function Profile() {
                         <p className='text-sm font-normal mt-2'>{interview.notes}</p>
                         </div>
                         <div className='w-full mt-2 flex flex-wrap gap-1.5 xl:gap-3'>
-                        <span className='bg-gray-200  text-sm px-3 py-1 rounded-2xl'>{interview.date}</span>
-                        <span className='bg-gray-200  text-sm px-3 py-1 rounded-2xl'>{interview.time}</span>
+                        <span className='bg-gray-100 font-light text-sm px-3 py-1 rounded-2xl flex justify-center items-center gap-1'><img src="/calendar.png" width={15} alt="calendar icon" />{interview.date}</span>
+                        <span className='bg-gray-100 font-light text-sm px-3 py-1 rounded-2xl flex justify-center items-center gap-1'><img src="/clock.png" width={15} alt="calendar icon" />{interview.time}</span>
+                        
                         <span className={`${interview.status == "Active" ? 'bg-green-600' : 'bg-red-600'} absolute right-4 bottom-3 font-medium text-white text-md px-5 py-1 rounded-2xl`}>{interview.status}</span>
                         </div>
                     </div>
@@ -143,7 +152,7 @@ function Profile() {
               </p>
             )
           }
-      <Footer />
+     
     </div>
   )
 }

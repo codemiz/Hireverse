@@ -35,7 +35,6 @@ function Verification() {
 
     <input type="text" maxLength={6} value={code} onChange={(e)=>setCode(e.target.value)} className='w-4/5 border h-12 px-3 border-gray-400 rounded-md' placeholder='Enter the 6-digits code' />        
     
-    <p className='font-light text-sm text-red-500'>Enter the code your recieved om your email.</p>
    </div>
     <button onClick={submitCode} className="google w-4/5 border-[1px] border-gray-400 h-12 bg-blue-400 text-white font-semibold flex justify-center items-center text-lg rounded-md">Submit</button>
 

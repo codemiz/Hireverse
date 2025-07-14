@@ -369,7 +369,7 @@ function ResumePreview() {
         </button>
       </div>
 
-      <Footer />
+      
     </div>
   );
 }

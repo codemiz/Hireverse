@@ -172,7 +172,7 @@ function CompanyProfileUpdate() {
           </div>
         </div>
       </form>
-      <Footer />
+     
     </div>
   );
 }

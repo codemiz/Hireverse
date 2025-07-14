@@ -17,7 +17,6 @@ import CompanyProfileUpdate from "../pages/Company-profile-update";
 import ResumePreview from "../pages/Resume-preview";
 import PasswordReset from "../components/Password-reset";
 import Notfound from "../pages/Notfound";
-import Loading from "../components/Loading";
 import ProfileChecker from "../components/ProfileChecker";
 import EmployeeOnly from "../components/EmployeeOnly";
 function AppRoutes() {
@@ -31,7 +30,6 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="*" element={<Notfound />} />
-      <Route path="/loading" element={<Loading />} />
       <Route path="/" element={<Home />} />
       <Route path="/password/reset" element={<PasswordReset />} />
       <Route path="/job/preview/:jobId" element={<JobPreview />} />

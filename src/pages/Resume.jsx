@@ -216,9 +216,9 @@ function Resume() {
           
         </div>
       </div>
-      <div className="buttons w-[90%] flex gap-2 justify-center mt-2">
-        <NavLink to={"/cv/edit"} className="bg-blue-400 px-4 py-1 text-white font-medium w-28 h-10 text-lg rounded-md">Update</NavLink>
-        <button className="bg-blue-400 px-4 py-1 text-white font-medium w-28 h-10 text-lg rounded-md">Download</button>
+      <div className="buttonw-[90%] lg:w-3/4 xl:w-3/5 2xl:w-1/2 flex gap-2 justify-center mt-2">
+        <NavLink to={"/cv/edit"} className="bg-blue-400 px-4 py-1 text-white font-medium w-full text-center h-10 text-lg rounded-md">Update</NavLink>
+       
       </div>
       </>
       :
@@ -229,7 +229,7 @@ function Resume() {
       </div>
       </>
       }
-    <Footer />
+    
     </div>
   );
 }

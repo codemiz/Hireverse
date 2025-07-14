@@ -14,7 +14,6 @@ function PostJob() {
       
       try {
         const res = await postJob(data)
-        // setUser(res.data.user)
         setTimeout(() => {
           navigate("/")
         }, 400);

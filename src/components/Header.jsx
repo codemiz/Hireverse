@@ -31,8 +31,8 @@ async function logoutUser(){
         </div>
       </header>
   return (
-    <header className='w-full absolute top-0 h-16 shadow-md flex justify-between px-7 items-center bg-white '>
-        <div>JobNext.</div>
+    <header className='w-full absolute top-0 h-16 shadow-md flex justify-between px-5 items-center bg-white '>
+       <img src="/logo.png" width={60} alt="" />
         {showPanel && 
         
         <div className="panel absolute shadow top-16 right-0 z-10 w-3/4 h-screen bg-white px-3">
@@ -85,7 +85,7 @@ async function logoutUser(){
           <>
           <NavLink to={"/profile"}>My Jobs</NavLink>
           <NavLink to={"/resume"}>Resume</NavLink>
-          <button onClick={logoutUser}>Logout</button>
+          <button className='cursor-pointer' onClick={logoutUser}>Logout</button>
           
          <NavLink to={"/profile"}>
          <img src={user.avatar} className='rounded-full border border-gray-400 w-6 h-6' alt="" />
@@ -97,7 +97,7 @@ async function logoutUser(){
           <>
           <NavLink to={"/employer/post-job"}>Post a job</NavLink>
           <NavLink to={"/employer/company"}>Company</NavLink>
-          <button onClick={logoutUser}>Logout</button>
+          <button className='cursor-pointer' onClick={logoutUser}>Logout</button>
          <NavLink to={"/profile"}>
          <img src={user.avatar} className='rounded-full border border-gray-400 w-6 h-6' alt="" />
          </NavLink>

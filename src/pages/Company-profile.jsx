@@ -108,7 +108,7 @@ function CompanyProfile() {
     </div>
     <div className="buttons w-[90%] lg:w-3/4 xl:w-3/5 2xl:w-2/5 flex gap-2 justify-center mt-2">
         <NavLink to={"/employer/company/edit"} className="bg-blue-400 py-1 text-white font-medium px-20 h-10 text-lg rounded-md">Update Details</NavLink>
-        {/* <button className="bg-blue-400 px-4 py-1 text-white font-medium w-1/2  h-10 text-lg rounded-md">Save</button> */}
+        
     </div>
     </>
     :
@@ -117,7 +117,7 @@ function CompanyProfile() {
               <NavLink to={"/employer/company/edit"} className="bg-blue-400 px-10 py-1 text-white font-thin h-10 text-lg rounded-lg">Add Company</NavLink>
         </div>
 }
-    <Footer />
+   
   </div>
   )
 }
