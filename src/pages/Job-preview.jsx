@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { previewJob , applyJob } from '../api'
 import { useAuth } from '../context/AuthContext'
 import { NavLink } from 'react-router-dom'
+import Loading from '../components/Loading'
 
 function JobPreview() {
   const {jobId} = useParams()
@@ -47,7 +48,7 @@ function JobPreview() {
     })
 
   }
-  if (loading) return <p>loading job</p>
+  if (loading) return <Loading />
   return (
     <div className="w-full min-h-screen bg-blue-50 flex flex-col gap-2 items-center py-20">
       <Header />
