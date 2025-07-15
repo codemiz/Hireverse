@@ -76,7 +76,7 @@ function JobPreview() {
             
             <p className={`text-green-500 font-thin`}>Applied.</p>
             :
-            user.resume ? 
+            (user.resume && user.role == "Employee") ? 
             <button onClick={jobApply} className={`px-4 w-32 md:w-40 py-1 ${(user && user.role == "Employee" ? "bg-blue-400" : "hidden")} text-white font-medium w-1/2 h-10 text-md md:text-lg rounded-md cursor-pointer`}>Apply</button>
             :
             <p className={`font-thin`}>Create your resume before applying.</p>
