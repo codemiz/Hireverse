@@ -2,8 +2,10 @@
 
 ---
 # Hireverse 
+---
 
 A full-stack job board application inspired by platforms like Indeed and Glassdoor
+
 ---
 
 ## Technologies Used: 
