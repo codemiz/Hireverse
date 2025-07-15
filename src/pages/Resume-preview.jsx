@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { applyJob, previewResume } from "../api";
 import { useForm } from "react-hook-form";
 import { sendInterviewInvite  ,rejectApplicant } from "../api";
+import Loading from '../components/Loading'
 
 function ResumePreview() {
   const { user } = useAuth();
@@ -68,7 +69,7 @@ function ResumePreview() {
       console.error(error);
     }
   }
-  if (loading) return <p>loading Resume</p>;
+  if (loading) return <Loading />;
   return (
     <div className="w-full h-[1500px] bg-blue-50 flex flex-col gap-2 items-center pt-20">
       <Header />
