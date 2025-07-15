@@ -29,11 +29,14 @@ const filteredJobs = jobs.filter(job =>{
 
         <select name="city" value={city} onChange={(e)=>setCity(e.target.value)} className='text-gray-600 w-2/6 px-3 text-sm md:text-md appearance-none'>
           <option value="None">Select City</option>
-          <option value="isl">Islamabad</option>
-          <option value="rwp">Rawalpindi</option>
-          <option value="lhr">Lahore</option>
-          <option value="kar">karachi</option>
+          <option value="islamabad">Islamabad</option>
+          <option value="rawalpindi">Rawalpindi</option>
+          <option value="lahore">Lahore</option>
+          <option value="karachi">karachi</option>
           <option value="multan">Multan</option>
+          <option value="peshawar">Peshawar</option>
+          <option value="quetta">Quetta</option>
+          <option value="faisalabad">Faisalabad</option>
         </select>
       <button className=' w-2/6 md:w-1/6 bg-blue-400 text-white text-sm md:text-md md:text-xl font-semibold rounded-r-xl cursor-pointer'>Search</button>
         </div>
