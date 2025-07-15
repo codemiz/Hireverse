@@ -25,9 +25,9 @@ const filteredJobs = jobs.filter(job =>{
      <Header />
       <div className="hero-section w-[90%] lg:w-3/4 xl:w-3/5 2xl:w-1/2 h-24 md:h-32 flex justify-center items-center">
         <div className='flex w-full bg-white h-1/2 justify-between border-[1px] rounded-xl border-gray-300'>
-        <input type="text" value={search} onChange={(e)=>setSearch(e.target.value)} className='w-3/6 outline-blue-500 border-r-[1px] border-gray-300 px-5 text-md md:text-lg' placeholder='Search job' />
+        <input type="text" value={search} onChange={(e)=>setSearch(e.target.value)} className='w-3/6 outline-none border-r-[1px] border-gray-300 px-5 text-md md:text-lg' placeholder='Search job' />
 
-        <select name="city" value={city} onChange={(e)=>setCity(e.target.value)} className='text-gray-600 w-2/6 px-3 text-sm md:text-md appearance-none'>
+        <select name="city" value={city} onChange={(e)=>setCity(e.target.value)} className='text-gray-600 outline-none w-2/6 px-3 text-sm md:text-md appearance-none'>
           <option value="None">Select City</option>
           <option value="islamabad">Islamabad</option>
           <option value="rawalpindi">Rawalpindi</option>
