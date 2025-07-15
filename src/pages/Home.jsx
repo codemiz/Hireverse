@@ -50,7 +50,7 @@ const filteredJobs = jobs.filter(job =>{
      
 
       {filteredJobs.length > 0 ? (
-  filteredJobs.map(job => (
+  filteredJobs.reverse().map(job => (
     <Job
       key={job._id}
       title={job.title}
