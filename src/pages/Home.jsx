@@ -37,6 +37,12 @@ const filteredJobs = jobs.filter(job =>{
           <option value="peshawar">Peshawar</option>
           <option value="quetta">Quetta</option>
           <option value="faisalabad">Faisalabad</option>
+          <option value="gilgit">Gilgit</option>
+          <option value="mirpur">Mirpur</option>
+          <option value="hyderabad">hyderabad</option>
+          <option value="muzaffarabad">Muzaffarabad</option>
+          <option value="sukkur">Sukkur</option>
+          <option value="fata">Fata</option>
         </select>
       <button className=' w-2/6 md:w-1/6 bg-blue-400 text-white text-sm md:text-md md:text-xl font-semibold rounded-r-xl cursor-pointer'>Search</button>
         </div>
